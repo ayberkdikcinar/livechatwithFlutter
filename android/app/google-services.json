@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "441083973830",
+    "project_id": "livechat-5f258",
+    "storage_bucket": "livechat-5f258.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:441083973830:android:e167c95f686439efa207c7",
+        "android_client_info": {
+          "package_name": "com.example.livechat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "441083973830-smdobj54edto5nrtigu8hrg7vmitgtvr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.livechat",
+            "certificate_hash": "bba51b1510ab4650c908ea44a85e2a116e620476"
+          }
+        },
+        {
+          "client_id": "441083973830-farnn309vv976idtko8mb57mgojf43jm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSPk7-YmXYV3AoooTCaFBaz6-ul1wtPnY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "441083973830-farnn309vv976idtko8mb57mgojf43jm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
