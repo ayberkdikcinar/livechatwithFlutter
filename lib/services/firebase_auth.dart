@@ -9,7 +9,7 @@ class FirebaseAuthentication implements AuthBase {
 
   UserModel? userFromFirebase(User? user) {
     if (user != null) {
-      return UserModel(uid: user.uid, email: user.email);
+      return UserModel(uid: user.uid, email: user.email, name: user.displayName, photo: user.photoURL, username: 'user${user.email}');
     } else {
       return null;
     }
@@ -68,26 +68,16 @@ class FirebaseAuthentication implements AuthBase {
 
   @override
   Future<UserModel?> createUserWithEmail(String? email, String? password) async {
-    try {
-      var _userCred = await _firebaseAuth.createUserWithEmailAndPassword(email: email!, password: password!);
-      return userFromFirebase(_userCred.user);
-    } catch (e) {
-      print('An error has been occurred while trying to creatinguserwithemail' + e.toString());
-      return null;
-    }
+    var _userCred = await _firebaseAuth.createUserWithEmailAndPassword(email: email!, password: password!);
+    return userFromFirebase(_userCred.user);
   }
 
   @override
   Future<UserModel?> signInWithEmail(String? email, String? password) async {
-    try {
-      var _userCred = await _firebaseAuth.signInWithEmailAndPassword(email: email!, password: password!);
-      if (_userCred.user != null) {
-        return userFromFirebase(_userCred.user);
-      } else {
-        return null;
-      }
-    } catch (e) {
-      print('An error has been occurred while trying to signinwithemail' + e.toString());
+    var _userCred = await _firebaseAuth.signInWithEmailAndPassword(email: email!, password: password!);
+    if (_userCred.user != null) {
+      return userFromFirebase(_userCred.user);
+    } else {
       return null;
     }
   }

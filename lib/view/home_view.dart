@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:livechat/custom_bottom_navigation.dart';
-import 'package:livechat/tab_item.dart';
-import 'package:livechat/view/communication_view.dart';
-import 'package:livechat/view/profile_view.dart';
-import 'package:livechat/viewmodel/home_viewmodel.dart';
-import '../viewmodel/user_viewmodel.dart';
 import 'package:provider/provider.dart';
+
+import '../custom_bottom_navigation.dart';
+import '../tab_item.dart';
+import '../viewmodel/home_viewmodel.dart';
+import 'main_communication_view.dart';
+import 'profile_view.dart';
 
 class HomeView extends StatefulWidget {
   HomeView({Key? key}) : super(key: key);
@@ -29,18 +29,11 @@ class _HomeViewState extends State<HomeView> {
     return Container(
       child: CustomBottomNavigation(
         onSelected: (onSelectedTab) {
-          print('Onselected Tab:' + onSelectedTab.toString());
           context.read<HomeViewModel>().setCurrentTab(onSelectedTab);
         },
         currentTab: context.watch<HomeViewModel>().getCurrentTab,
         createPage: allPages(),
       ),
     );
-  }
-
-  Future<bool?> logOut(BuildContext context) async {
-    final _userviewmodel = Provider.of<UserViewModel>(context, listen: false);
-    var _resp = await _userviewmodel.signOut();
-    return _resp;
   }
 }

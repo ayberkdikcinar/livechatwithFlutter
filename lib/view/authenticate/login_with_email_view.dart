@@ -1,11 +1,14 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import '../../components/widgets/custom_button_widget.dart';
-import '../../components/widgets/custom_textForm_widget.dart';
-import '../../viewmodel/login_viewmodel.dart';
-import '../../viewmodel/user_viewmodel.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../components/constants/constants.dart';
+import '../../components/widgets/custom_button_widget.dart';
+import '../../components/widgets/custom_textForm_widget.dart';
+import '../../firebase_error.dart';
+import '../../viewmodel/login_viewmodel.dart';
+import '../../viewmodel/user_viewmodel.dart';
 
 //enum Current_State { Register, Login }
 
@@ -49,15 +52,17 @@ class _LoginWithEmailViewState extends State<LoginWithEmailView> {
                     child: Column(
                       children: [
                         Custom_Textformfield(
+                            validator: (value) {},
                             hint: 'E-mail',
-                            onSaved: (val) {
+                            onChanged: (val) {
                               _email = val;
                             },
                             icon: Icons.email),
                         emptySpace,
                         Custom_Textformfield(
+                            validator: (value) {},
                             hint: 'Password',
-                            onSaved: (val) {
+                            onChanged: (val) {
                               _password = val;
                             },
                             icon: Icons.lock),
@@ -107,12 +112,25 @@ class _LoginWithEmailViewState extends State<LoginWithEmailView> {
   SizedBox get emptySpace => SizedBox(height: 10);
 
   Future<void> signInWithEmail(String? email, String? password) async {
-    final _userviewmodel = Provider.of<UserViewModel>(context, listen: false);
-    await _userviewmodel.signInWithEmail(email, password);
+    try {
+      final _userviewmodel = Provider.of<UserViewModel>(context, listen: false);
+      await _userviewmodel.signInWithEmail(email, password);
+    } on FirebaseAuthException catch (e) {
+      final _snackbar = buildSnackBar(text: FB_Error.getError(e.code)!);
+      ScaffoldMessenger.of(context).showSnackBar(_snackbar);
+    }
   }
 
   Future<void> createUserWithEmail(String? email, String? password) async {
-    final _userviewmodel = Provider.of<UserViewModel>(context, listen: false);
-    await _userviewmodel.createUserWithEmail(email, password);
+    try {
+      final _userviewmodel = Provider.of<UserViewModel>(context, listen: false);
+      await _userviewmodel.createUserWithEmail(email, password);
+    } on PlatformException catch (e) {
+      final _snackbar = SnackBar(content: Text(e.message.toString()));
+      ScaffoldMessenger.of(context).showSnackBar(_snackbar);
+    } on FirebaseAuthException catch (e) {
+      final _snackbar = buildSnackBar(text: FB_Error.getError(e.code)!);
+      ScaffoldMessenger.of(context).showSnackBar(_snackbar);
+    }
   }
 }

@@ -1,10 +1,11 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:livechat/viewmodel/home_viewmodel.dart';
 import 'package:provider/provider.dart';
 
 import 'components/locator/locator.dart';
+import 'view/home_view.dart';
 import 'view/landing_view.dart';
+import 'viewmodel/home_viewmodel.dart';
 import 'viewmodel/login_viewmodel.dart';
 import 'viewmodel/user_viewmodel.dart';
 
@@ -32,6 +33,10 @@ class MyApp extends StatelessWidget {
       title: 'Material App',
       home: LandingView(),
       theme: ThemeData.dark(),
+      routes: {
+        '/home': (context) => HomeView(),
+      },
+      initialRoute: '/',
     );
   }
 }

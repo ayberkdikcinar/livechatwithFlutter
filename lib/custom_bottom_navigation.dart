@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:livechat/tab_item.dart';
+import 'tab_item.dart';
 
 class CustomBottomNavigation extends StatelessWidget {
   const CustomBottomNavigation({Key? key, required this.currentTab, required this.onSelected, required this.createPage}) : super(key: key);

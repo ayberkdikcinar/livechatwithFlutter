@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'login_with_email_view.dart';
-import '../../viewmodel/user_viewmodel.dart';
 import 'package:provider/provider.dart';
 
-import '../../components/widgets/custom_button_widget.dart';
 import '../../components/constants/constants.dart';
+import '../../components/widgets/custom_button_widget.dart';
+import '../../viewmodel/user_viewmodel.dart';
+import 'login_with_email_view.dart';
 
 class WelcomeView extends StatelessWidget {
   const WelcomeView({Key? key}) : super(key: key);
@@ -104,7 +104,11 @@ class WelcomeView extends StatelessWidget {
 
   void signInGoogle(BuildContext context) {
     final _userviewmodel = Provider.of<UserViewModel>(context, listen: false);
-    _userviewmodel.signInWithGoogle();
+    try {
+      _userviewmodel.signInWithGoogle();
+    } catch (e) {
+      print('welcomeviewde googlela girşi hatası' + e.toString());
+    }
   }
 
   void routingSignInEmail(BuildContext context) {
